@@ -1,0 +1,15 @@
+<% if User.current.logged? && @issue.due_date %>
+  <div class="notification-subscription">
+    <% if @issue.subscribed?(User.current) %>
+      <%= button_to l(:button_unsubscribe),
+                    unsubscribe_issue_issue_notification_path(@issue),
+                    method: :delete,
+                    class: 'icon icon-del' %>
+    <% else %>
+      <%= button_to l(:button_subscribe),
+                    subscribe_issue_issue_notification_path(@issue),
+                    method: :post,
+                    class: 'icon icon-add' %>
+    <% end %>
+  </div>
+<% end %> 

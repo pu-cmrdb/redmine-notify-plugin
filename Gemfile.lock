@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    mocha (2.7.1)
+      ruby2_keywords (>= 0.0.5)
+    rake (13.3.0)
+    ruby2_keywords (0.0.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  mocha
+  rake
+
+BUNDLED WITH
+   1.17.2

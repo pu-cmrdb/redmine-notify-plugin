@@ -1,0 +1,12 @@
+<%= l(:mail_body_issue_due_date,
+  days: @days_left,
+  issue: "##{@issue.id}",
+  title: @issue.subject,
+  assignee: @issue.assigned_to&.name || l(:label_unassigned),
+  url: issue_url(@issue)) %>
+
+<%= l(:label_issue_due_date_details) %>:
+<%= @issue.description %>
+
+---
+<%= l(:label_issue_url) %>: <%= issue_url(@issue) %> 

@@ -1,0 +1,34 @@
+zh-TW:
+  # 插件名稱
+  label_issue_notifications: 議題通知
+
+  # 按鈕
+  button_subscribe: 訂閱通知
+  button_unsubscribe: 取消訂閱通知
+
+  # 設定
+  label_notification_days_before: 到期日前幾天通知
+  label_enable_email_notifications: 啟用電子郵件通知
+  label_enable_discord_notifications: 啟用 Discord 通知
+  label_discord_webhook_url: Discord Webhook 網址
+  text_discord_webhook_info: 請輸入您的 Discord 伺服器設定中的 webhook 網址
+
+  # 通知
+  notice_subscription_created: 成功訂閱議題通知
+  notice_subscription_removed: 成功取消訂閱議題通知
+  error_subscription_not_created: 無法訂閱議題通知
+  error_subscription_not_removed: 無法取消訂閱議題通知
+
+  # 電子郵件通知
+  mail_subject_issue_due_date: "[%{issue}] %{title} 將在 %{days} 天後到期"
+  mail_body_issue_due_date: |
+    議題 %{issue} - %{title} 將在 %{days} 天後到期。
+    
+    指派給：%{assignee}
+    
+    您可以在此查看議題：%{url}
+
+  # 標籤
+  label_issue_due_date_details: 議題詳細資訊
+  label_issue_url: 議題網址
+  label_unassigned: 未指派
