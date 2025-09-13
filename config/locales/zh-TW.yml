@@ -22,11 +22,14 @@ zh-TW:
   # 電子郵件通知
   mail_subject_issue_due_date: "[%{issue}] %{title} 將在 %{days} 天後到期"
   mail_body_issue_due_date: |
+    行雲者redmine議題到期通知:
+
     議題 %{issue} - %{title} 將在 %{days} 天後到期。
-    
+
     指派給：%{assignee}
-    
+    到期日：%{due_date}
     您可以在此查看議題：%{url}
+    請在到期日期完成相關工作，避免延誤。
 
   # 標籤
   label_issue_due_date_details: 議題詳細資訊
