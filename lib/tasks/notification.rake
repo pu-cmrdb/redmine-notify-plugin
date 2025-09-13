@@ -4,6 +4,8 @@ namespace :redmine_notify_plugin do
     Rails.logger.info 'Starting daily due date notification check...'
 
     begin
+      require_dependency File.expand_path('../../issue_patch', __FILE__)
+      
       notification_days = Setting.plugin_redmine_notify_plugin['notification_days_before'].to_i
       
       # 如果電子郵件通知已關閉，則跳過
@@ -13,9 +15,10 @@ namespace :redmine_notify_plugin do
       end
 
       due_date = Date.today + notification_days.days
-      issues = Issue.where(due_date: due_date)
-                   .includes(:issue_subscriptions, :subscribers)
-                   .where.not(issue_subscriptions: { id: nil })
+      issues = Issue.joins(:issue_subscriptions)
+                   .where(due_date: due_date)
+                   .includes(:subscribers)
+                   .distinct
 
       Rails.logger.info "Found #{issues.count} issues due in #{notification_days} days"
 
