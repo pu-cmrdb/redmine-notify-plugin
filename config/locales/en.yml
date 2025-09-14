@@ -41,3 +41,5 @@ en:
   label_due_in:
     one: Due in %{count} day
     other: Due in %{count} days
+  label_view_issue: View Issue
+  text_issue_notification_footer: This is an automated issue due date notification email

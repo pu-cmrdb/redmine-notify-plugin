@@ -43,3 +43,5 @@ zh-TW:
   label_due_in:
     one: "%{count} 天後到期"
     other: "%{count} 天後到期"
+  label_view_issue: 查看議題
+  text_issue_notification_footer: 這是一封自動發送的議題到期通知郵件

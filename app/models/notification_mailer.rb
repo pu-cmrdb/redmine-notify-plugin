@@ -20,18 +20,21 @@ class NotificationMailer < Mailer
     notification_days = Setting.plugin_redmine_notify_plugin['notification_days_before'].to_i
     Rails.logger.info "天數剩餘: #{@days_left}, 通知設定: #{notification_days}"
     
-    unless @days_left == notification_days
-      Rails.logger.info "- ❌ 跳過通知 - 天數不符 (#{@days_left} != #{notification_days})"
+    unless @days_left <= notification_days && @days_left >= 0
+      Rails.logger.info "- ❌ 天數大於 #{notification_days} 天"
       return
     end
 
     Rails.logger.info "傳送通知電子郵件給議題 ##{issue.id} 給 #{user.mail} (#{@days_left} 天後到期)"
 
+    subject_params = {
+      days: @days_left,
+      issue: "##{issue.id}",
+      title: issue.subject
+    }
+    
     mail(to: user.mail,
-         subject: l(:mail_subject_issue_due_date,
-           days: @days_left,
-           issue: "##{issue.id}",
-           title: issue.subject))
+         subject: l(:mail_subject_issue_due_date, subject_params))
 
   rescue StandardError => e
     Rails.logger.error "準備通知電子郵件時發生錯誤: 議題 ##{issue.id} 給 #{user.mail}: #{e.message}"

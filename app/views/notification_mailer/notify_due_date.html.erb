@@ -1,0 +1,101 @@
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
+  <div style="background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    
+    <!-- Header -->
+    <div style="border-bottom: 3px solid #169bd8; padding-bottom: 20px; margin-bottom: 30px;">
+      <h1 style="color: #169bd8; margin: 0; font-size: 24px;">
+        <%= l(:mail_subject_issue_due_date, 
+              days: @days_left,
+              issue: "##{@issue.id}",
+              title: @issue.subject) %>
+      </h1>
+    </div>
+
+    <!-- Main Content -->
+    <div style="margin-bottom: 30px;">
+      <p style="font-size: 16px; line-height: 1.6; color: #333; margin-bottom: 20px;">
+        <%= l(:mail_body_issue_due_date,
+          days: @days_left,
+          issue: "##{@issue.id}",
+          title: @issue.subject,
+          assignee: @issue.assigned_to&.name || l(:label_unassigned),
+          url: issue_url(@issue)) %>
+      </p>
+    </div>
+
+    <!-- Issue Details Card -->
+    <div style="background-color: #f8f9fa; border-left: 4px solid #169bd8; padding: 20px; margin-bottom: 30px;">
+      <h3 style="color: #169bd8; margin: 0 0 15px 0; font-size: 18px;">
+        <%= l(:label_issue_due_date_details) %>
+      </h3>
+      
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #555; width: 120px;">
+            <%= l(:field_subject) %>:
+          </td>
+          <td style="padding: 8px 0; color: #333;">
+            <%= @issue.subject %>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #555;">
+            <%= l(:field_assigned_to) %>:
+          </td>
+          <td style="padding: 8px 0; color: #333;">
+            <%= @issue.assigned_to&.name || l(:label_unassigned) %>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #555;">
+            <%= l(:field_due_date) %>:
+          </td>
+          <td style="padding: 8px 0; color: #d9534f; font-weight: bold;">
+            <%= format_date(@issue.due_date) %>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #555;">
+            <%= l(:field_priority) %>:
+          </td>
+          <td style="padding: 8px 0; color: #333;">
+            <%= @issue.priority&.name %>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Description -->
+    <% if @issue.description.present? %>
+    <div style="margin-bottom: 30px;">
+      <h3 style="color: #169bd8; margin: 0 0 15px 0; font-size: 18px;">
+        <%= l(:field_description) %>
+      </h3>
+      <div style="background-color: #f8f9fa; padding: 15px; border-radius: 4px; border: 1px solid #e9ecef;">
+        <p style="margin: 0; line-height: 1.6; color: #333;">
+          <%= simple_format(h(@issue.description)) %>
+        </p>
+      </div>
+    </div>
+    <% end %>
+
+    <!-- Action Button -->
+    <div style="text-align: center; margin: 30px 0;">
+      <a href="<%= issue_url(@issue) %>" 
+         style="display: inline-block; background-color: #169bd8; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 16px;">
+        <%= l(:label_view_issue) %>
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <div style="border-top: 1px solid #e9ecef; padding-top: 20px; margin-top: 30px; text-align: center;">
+      <p style="color: #6c757d; font-size: 14px; margin: 0;">
+        <%= l(:text_issue_notification_footer) %>
+      </p>
+      <p style="color: #6c757d; font-size: 12px; margin: 10px 0 0 0;">
+        <%= l(:label_issue_url) %>: <a href="<%= issue_url(@issue) %>" style="color: #169bd8;"><%= issue_url(@issue) %></a>
+      </p>
+    </div>
+
+  </div>
+</div>
