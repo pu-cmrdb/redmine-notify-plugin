@@ -26,7 +26,7 @@
 
 ```bash
 cd {REDMINE_ROOT}/plugins
-git clone https://github.com/yourusername/redmine-notify-plugin.git
+git clone https://github.com/pu-cmrdb/redmine-notify-plugin.git
 ```
 
 ### 2. 設定 Docker 環境
