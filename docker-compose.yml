@@ -1,29 +1,4 @@
 services:
-  redmine:
-    image: redmine:5.1
-    container_name: redmine
-    ports:
-      - "3000:3000"
-    networks:
-      - redmine-network
-    depends_on:
-      - mariadb
-    volumes:
-      - ./data/redmine/files:/usr/src/redmine/files
-      - .:/usr/src/redmine/plugins/redmine_notify_plugin
-    environment:
-      REDMINE_DB_MYSQL: mariadb
-      REDMINE_DB_USERNAME: redmine
-      REDMINE_DB_PASSWORD: redminepass
-      REDMINE_DB_DATABASE: redmine
-      REDMINE_SECRET_KEY_BASE: supersecretkey
-    extra_hosts:
-      - "redmine.local:192.168.1.231"
-    dns:
-      - 8.8.8.8
-    dns_search:
-      - redmine.local
-
   mariadb:
     image: mariadb:10.11
     container_name: redmine-db
@@ -45,6 +20,39 @@ services:
       - 8.8.8.8
     dns_search:
       - redmine.local
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -P 3306 -u root -p$$MARIADB_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 30s
+
+  redmine:
+    image: redmine:5.1
+    container_name: redmine
+    ports:
+      - "3000:3000"
+    networks:
+      - redmine-network
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    volumes:
+      - ./data/redmine/files:/usr/src/redmine/files
+      - .:/usr/src/redmine/plugins/redmine_notify_plugin
+    environment:
+      REDMINE_DB_MYSQL: mariadb
+      REDMINE_DB_USERNAME: redmine
+      REDMINE_DB_PASSWORD: redminepass
+      REDMINE_DB_DATABASE: redmine
+      REDMINE_SECRET_KEY_BASE: supersecretkey
+    extra_hosts:
+      - "redmine.local:192.168.1.231"
+    dns:
+      - 8.8.8.8
+    dns_search:
+      - redmine.local
+
 
 networks:
   redmine-network:
