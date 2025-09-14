@@ -43,7 +43,7 @@ module IssuePatch
           
           begin
             mailer = NotificationMailer.notify_due_date(subscriber, self)
-            if mailer&.deliver_later
+            if mailer&.deliver_now
               subscription&.record_notification_sent!(due_date)
               Rails.logger.info "  - 通知已發送並記錄給 #{subscriber.name}"
             end
