@@ -51,24 +51,4 @@ Rails.configuration.to_prepare do
   end
 end
 
-# 註冊排程任務
-Rails.application.config.after_initialize do
-  # 註冊 rake 任務，可以透過 cron 來執行
-  # 建議在 crontab 中加入:
-  # 0 1 * * * cd /usr/src/redmine && bundle exec rake redmine:plugins:notify_due_dates RAILS_ENV=production
-  require 'rake'
-  
-  namespace :redmine do
-    namespace :plugins do
-      desc '傳送即將到期的議題通知'
-      task :notify_due_dates => :environment do
-        days_before = Setting.plugin_redmine_notify_plugin['notification_days_before'].to_i
-        due_issues = Issue.due_in_days(days_before)
-        
-        due_issues.each do |issue|
-          issue.notify_subscribers if Setting.plugin_redmine_notify_plugin['enable_email_notifications'] == '1'
-        end
-      end
-    end
-  end
-end 
+# 註冊排程任務 - 透過 lib/tasks/notification.rake 檔案處理 

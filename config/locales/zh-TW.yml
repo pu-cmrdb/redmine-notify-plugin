@@ -27,7 +27,6 @@ zh-TW:
     議題 %{issue} - %{title} 將在 %{days} 天後到期。
 
     指派給：%{assignee}
-    到期日：%{due_date}
     您可以在此查看議題：%{url}
     請在到期日期完成相關工作，避免延誤。
 
@@ -35,3 +34,12 @@ zh-TW:
   label_issue_due_date_details: 議題詳細資訊
   label_issue_url: 議題網址
   label_unassigned: 未指派
+  label_days_remaining: 剩餘天數
+  label_no_issues_due: 目前沒有即將到期的議題
+  label_overdue_by:
+    one: 逾期 %{count} 天
+    other: 逾期 %{count} 天
+  label_due_today: 今天到期
+  label_due_in:
+    one: "%{count} 天後到期"
+    other: "%{count} 天後到期"

@@ -9,12 +9,14 @@ end
 resources :issues do
   # /issues/:issue_id/issue_notification
   resource :issue_notification, only: [] do
-    # POST /issues/:issue_id/issue_notification/subscribe
-    # 訂閱特定議題的通知
-    post :subscribe, on: :member
+    member do
+      # POST /issues/:issue_id/issue_notification/subscribe
+      # 訂閱特定議題的通知
+      post :subscribe
 
-    # DELETE /issues/:issue_id/issue_notification/unsubscribe
-    # 取消訂閱特定議題的通知
-    delete :unsubscribe, on: :member
+      # DELETE /issues/:issue_id/issue_notification/unsubscribe
+      # 取消訂閱特定議題的通知
+      delete :unsubscribe
+    end
   end
 end 

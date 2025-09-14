@@ -1,0 +1,47 @@
+/* Issue Notifications Plugin Styles */
+
+.issue-notifications {
+  margin: 20px 0;
+}
+
+.days_remaining .overdue {
+  color: #d00;
+  font-weight: bold;
+}
+
+.days_remaining .urgent {
+  color: #ff8c00;
+  font-weight: bold;
+}
+
+.notification-subscription {
+  margin: 10px 0;
+}
+
+.notification-subscription .icon {
+  padding: 5px 10px;
+  border-radius: 3px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.notification-subscription .icon-add {
+  background-color: #5cb85c;
+  color: white;
+}
+
+.notification-subscription .icon-del {
+  background-color: #d9534f;
+  color: white;
+}
+
+.notification-subscription .icon:hover {
+  opacity: 0.8;
+}
+
+.nodata {
+  font-style: italic;
+  color: #999;
+  text-align: center;
+  padding: 20px;
+}

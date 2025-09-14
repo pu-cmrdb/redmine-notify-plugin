@@ -1,34 +1,43 @@
 en:
   # Plugin name and menu
   label_issue_notifications: Issue Notifications
-  
+
   # Buttons
   button_subscribe: Subscribe to notifications
   button_unsubscribe: Unsubscribe from notifications
-  
+
   # Settings
   label_notification_days_before: Days before due date to notify
   label_enable_email_notifications: Enable email notifications
   label_enable_discord_notifications: Enable Discord notifications
   label_discord_webhook_url: Discord Webhook URL
   text_discord_webhook_info: Enter the webhook URL from your Discord server settings
-  
+
   # Notices
   notice_subscription_created: Successfully subscribed to issue notifications
   notice_subscription_removed: Successfully unsubscribed from issue notifications
   error_subscription_not_created: Could not subscribe to issue notifications
   error_subscription_not_removed: Could not unsubscribe from issue notifications
-  
+
   # Email notifications
   mail_subject_issue_due_date: "[%{issue}] %{title} is due in %{days} days"
   mail_body_issue_due_date: |
     The issue %{issue} - %{title} is due in %{days} days.
-    
+
     Assigned to: %{assignee}
-    
+
     You can view the issue here: %{url}
-  
+
   # Labels
   label_issue_due_date_details: Issue Details
   label_issue_url: Issue URL
-  label_unassigned: Unassigned 
+  label_unassigned: Unassigned
+  label_days_remaining: Days Remaining
+  label_no_issues_due: No issues are currently due
+  label_overdue_by:
+    one: Overdue by %{count} day
+    other: Overdue by %{count} days
+  label_due_today: Due today
+  label_due_in:
+    one: Due in %{count} day
+    other: Due in %{count} days

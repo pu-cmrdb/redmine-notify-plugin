@@ -5,7 +5,8 @@ class IssueNotificationsController < ApplicationController
   before_action :authorize_global, only: [:subscribe, :unsubscribe]
 
   def index
-    @issues = @project.issues.due_in_days(Setting.plugin_redmine_notify_plugin['notification_days_before'].to_i)
+    days_before = Setting.plugin_redmine_notify_plugin['notification_days_before'].to_i
+    @issues = @project.issues.due_in_days(days_before)
   end
 
   def subscribe

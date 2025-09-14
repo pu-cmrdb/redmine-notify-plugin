@@ -6,6 +6,9 @@ module IssuePatch
       has_many :issue_subscriptions, dependent: :destroy
       has_many :subscribers, through: :issue_subscriptions, source: :user
 
+      # 類別方法：找到在指定天數內到期的議題
+      scope :due_in_days, ->(days) { where('due_date <= ? AND due_date >= ?', Date.today + days.days, Date.today) }
+
       def subscribed?(user)
         issue_subscriptions.exists?(user_id: user.id)
       end
