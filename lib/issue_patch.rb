@@ -24,7 +24,7 @@ module IssuePatch
         end
 
         Rails.logger.info "- 共有 #{subscribers.count} 個訂閱者:"
-        
+
         subscribers.each do |subscriber|
           Rails.logger.info "  - #{subscriber.name} (#{subscriber.mail})"
         end
@@ -32,9 +32,18 @@ module IssuePatch
         Rails.logger.info "- 正在通知訂閱者..."
 
         subscribers.each do |subscriber|
+          subscription = issue_subscriptions.find_by(user: subscriber)
+          if subscription&.already_notified_for_due_date?(due_date)
+            Rails.logger.warn "  - 已經為到期日 #{due_date} 發送過通知給 #{subscriber.name}，跳過"
+            next
+          end
+          
           begin
             mailer = NotificationMailer.notify_due_date(subscriber, self)
-            mailer&.deliver_later
+            if mailer&.deliver_later
+              subscription&.record_notification_sent!(due_date)
+              Rails.logger.info "  - 通知已發送並記錄給 #{subscriber.name}"
+            end
           rescue StandardError => e
             Rails.logger.error "Failed to queue notification for Issue ##{id} to #{subscriber.mail}: #{e.message}"
           end

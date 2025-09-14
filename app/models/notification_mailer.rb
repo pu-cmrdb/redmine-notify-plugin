@@ -21,7 +21,7 @@ class NotificationMailer < Mailer
     Rails.logger.info "天數剩餘: #{@days_left}, 通知設定: #{notification_days}"
     
     unless @days_left == notification_days
-      Rails.logger.info "跳過通知 - 天數不符 (#{@days_left} != #{notification_days})"
+      Rails.logger.info "- ❌ 跳過通知 - 天數不符 (#{@days_left} != #{notification_days})"
       return
     end
 
