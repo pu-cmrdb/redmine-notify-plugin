@@ -46,6 +46,8 @@ module IssuePatch
             if mailer&.deliver_now
               subscription&.record_notification_sent!(due_date)
               Rails.logger.info "  - 通知已發送並記錄給 #{subscriber.name}"
+            else
+              Rails.logger.warn "  - 郵件發送失敗或被跳過：#{subscriber.name}"
             end
           rescue StandardError => e
             Rails.logger.error "Failed to queue notification for Issue ##{id} to #{subscriber.mail}: #{e.message}"
