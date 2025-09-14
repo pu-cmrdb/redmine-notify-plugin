@@ -34,6 +34,7 @@ end
 Rails.configuration.to_prepare do
   require_dependency 'issue_notifications_hook_listener'
   require_dependency 'issue_patch'
+  require_dependency 'notification_mailer'
 
   # 自動啟用管理員權限
   User.where(admin: true).find_each do |admin|
@@ -65,7 +66,7 @@ Rails.application.config.after_initialize do
         due_issues = Issue.due_in_days(days_before)
         
         due_issues.each do |issue|
-          NotificationMailer.notify_due_date(issue).deliver_now if Setting.plugin_redmine_notify_plugin['enable_email_notifications'] == '1'
+          issue.notify_subscribers if Setting.plugin_redmine_notify_plugin['enable_email_notifications'] == '1'
         end
       end
     end

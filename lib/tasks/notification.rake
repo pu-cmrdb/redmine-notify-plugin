@@ -1,7 +1,7 @@
 namespace :redmine_notify_plugin do
-  desc 'Check issues and send due date notifications'
+  desc '檢查議題到期並傳送通知'
   task notify_due_dates: :environment do
-    Rails.logger.info 'Starting daily due date notification check...'
+    Rails.logger.info '開始每日議題到期通知檢查...'
 
     begin
       require_dependency File.expand_path('../../issue_patch', __FILE__)
@@ -10,27 +10,27 @@ namespace :redmine_notify_plugin do
       
       # 如果電子郵件通知已關閉，則跳過
       unless Setting.plugin_redmine_notify_plugin['enable_email_notifications']
-        Rails.logger.info 'Email notifications are disabled. Skipping...'
+        Rails.logger.info '電子郵件通知已關閉. 跳過...'
         next
       end
 
       due_date = Date.today + notification_days.days
       issues = Issue.joins(:issue_subscriptions)
-                   .where(due_date: due_date)
+                   .where('due_date <= ?', due_date)
                    .includes(:subscribers)
                    .distinct
 
-      Rails.logger.info "Found #{issues.count} issues due in #{notification_days} days"
+      Rails.logger.info "有 #{issues.count} 個議題將在 #{notification_days} 天後到期"
 
       issues.each do |issue|
-        Rails.logger.info "Processing notifications for Issue ##{issue.id} (due: #{issue.due_date})"
+        Rails.logger.info "處理議題 ##{issue.id} (到期日: #{issue.due_date})"
         issue.notify_subscribers
       end
 
     rescue StandardError => e
-      Rails.logger.error "Error during notification check: #{e.message}\n#{e.backtrace.join("\n")}"
+      Rails.logger.error "處理議題通知時發生錯誤: #{e.message}\n#{e.backtrace.join("\n")}"
     end
 
-    Rails.logger.info 'Completed daily due date notification check'
+    Rails.logger.info '完成每日議題到期通知檢查'
   end
 end
